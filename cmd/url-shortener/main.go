@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/ViktorShv95/go-url-shortener/internal/config"
+	"github.com/ViktorShv95/go-url-shortener/internal/storage/sqlite"
 )
 
 const (
@@ -21,9 +22,11 @@ func main() {
 	log.Info("starting url-shortener", slog.String("env", cfg.Env))
 	log.Debug("debug messages are enabled")
 
-	// TODO: init logger: slog
-
-	// TODO: init storage: sqlite
+	storage, err := sqlite.New(cfg.StoragePath)
+	if err != nil {
+		log.Error("failed to initialize storage", err)
+		os.Exit(1)
+	}
 
 	// TODO: init router: chi, render
 
