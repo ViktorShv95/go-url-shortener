@@ -28,9 +28,7 @@ func main() {
 		log.Error("failed to initialize storage", sl.Err(err))
 		os.Exit(1)
 	}
-
-	_ = storage
-
+	
 	// TODO: init router: chi, render
 
 	// TODO: run server
