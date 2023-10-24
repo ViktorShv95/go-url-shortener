@@ -3,6 +3,9 @@ package sqlite
 import (
 	"database/sql"
 	"fmt"
+
+
+	_ "github.com/mattn/go-sqlite3" // init sqlite3 driver
 )
 
 type Storage struct {

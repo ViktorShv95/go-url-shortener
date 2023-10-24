@@ -12,7 +12,8 @@
             "program": "/Users/viktorshvaikoskii/go-url-shortener/cmd/url-shortener/main.go",
             "env": {
                 "CONFIG_PATH": "/Users/viktorshvaikoskii/go-url-shortener/config/local.yaml"
-            }
+            },
+            "cwd": "/Users/viktorshvaikoskii/go-url-shortener"
         }
     ]
 }
