@@ -5,8 +5,11 @@ import (
 	"os"
 
 	"github.com/ViktorShv95/go-url-shortener/internal/config"
+	mwLogger "github.com/ViktorShv95/go-url-shortener/internal/http-server/middleware/logger"
 	"github.com/ViktorShv95/go-url-shortener/internal/lib/logger/sl"
 	"github.com/ViktorShv95/go-url-shortener/internal/storage/sqlite"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 const (
@@ -28,8 +31,15 @@ func main() {
 		log.Error("failed to initialize storage", sl.Err(err))
 		os.Exit(1)
 	}
-	
-	// TODO: init router: chi, render
+
+
+	router := chi.NewRouter()
+
+	router.Use(middleware.RequestID)
+	router.Use(middleware.Logger)
+	router.Use(mwLogger.New(log))
+	router.Use(middleware.Recoverer)
+	router.Use(middleware.URLFormat)
 
 	// TODO: run server
 }
