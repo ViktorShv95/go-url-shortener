@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/ViktorShv95/go-url-shortener/internal/config"
+	"github.com/ViktorShv95/go-url-shortener/internal/http-server/handlers/redirect"
 	"github.com/ViktorShv95/go-url-shortener/internal/http-server/handlers/url/save"
 	mwLogger "github.com/ViktorShv95/go-url-shortener/internal/http-server/middleware/logger"
 	"github.com/ViktorShv95/go-url-shortener/internal/lib/logger/handlers/slogpretty"
@@ -26,7 +27,11 @@ func main() {
 
 	log := setupLogger(cfg.Env)
 
-	log.Info("starting url-shortener", slog.String("env", cfg.Env))
+	log.Info(
+		"starting url-shortener", 
+		slog.String("env", cfg.Env),
+		slog.String("version", "1.0.0"),
+	)
 	log.Debug("debug messages are enabled")
 
 	storage, err := sqlite.New(cfg.StoragePath)
@@ -46,6 +51,7 @@ func main() {
 	router.Use(middleware.URLFormat)
 
 	router.Post("/url", save.New(log, storage))
+	router.Get("/{alias}", redirect.New(log, storage))
 
 	log.Info("starting server", slog.String("address:port", cfg.HTTPServer.Address))
 
