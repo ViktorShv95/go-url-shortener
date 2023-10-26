@@ -1,4 +1,3 @@
-
 name: Deploy App
 
 on:
@@ -12,10 +11,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      HOST: shvajkovskij@146.0.75.124
-      DEPLOY_DIRECTORY: /home/shvajkovskij/apps/url-shortener
-      CONFIG_PATH: /home/shvajkovskij/apps/url-shortener/config/prod.yaml
-      ENV_FILE_PATH: /home/shvajkovskij/apps/url-shortener/config.env
+      HOST: root@146.0.75.124
+      DEPLOY_DIRECTORY: /root/apps/url-shortener
+      CONFIG_PATH: /root/apps/url-shortener/config/prod.yaml
+      ENV_FILE_PATH: /root/apps/url-shortener/config.env
 
     steps:
       - name: Checkout repository
